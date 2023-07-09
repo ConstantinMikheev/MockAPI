@@ -22,7 +22,9 @@ namespace BLTests
             try
             {
                 data.AddAPIMethod(methodName);
-            } catch (Exception ex)
+                throw new Exception("Не прошел тест на проверку дублей методов API");
+            }
+            catch (Exception ex)
             {
                 Assert.AreEqual($"Метод с именем {methodName} уже существует", ex.Message);
             }
@@ -42,12 +44,14 @@ namespace BLTests
             data.SaveAPIMethods();
             if (!File.Exists(fileName))
                 throw new Exception("Не удалось сериализовать APIMethods");
+
             var data2 = new APIData(Path.GetTempPath());
             Assert.IsNotNull(data.GetAPIMethod(methodName1));
             Assert.AreEqual(methodName1, data.GetAPIMethod(methodName1).ToString());
             Assert.IsNotNull(data.GetAPIMethod(methodName2));
             Assert.AreEqual(methodName2, data.GetAPIMethod(methodName2).ToString());
             Assert.IsNull(data.GetAPIMethod(methodName3));
+
             File.Delete(fileName);
         }
     }

@@ -9,7 +9,7 @@ namespace Model
         /// <summary>
         /// Текстовый идентификатор метода
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; }
         /// <summary>
         /// Загружать данные по методу с сервера API
         /// </summary>

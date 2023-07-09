@@ -45,6 +45,7 @@
     <Compile Include="APIMethods.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="KeyMethod.cs" />
+    <Compile Include="Keys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

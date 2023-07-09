@@ -1,19 +1,19 @@
 ﻿
-namespace Models
+namespace Model
 {
     /// <summary>
-    /// Метод, подключенный к ключу
+    /// Свойства методов API, подключенных к ключу
     /// </summary>
     public class KeyMethod
     {
         /// <summary>
         /// Ключ API
         /// </summary>
-        public Key key { get; set; }
+        public string key { get; }
         /// <summary>
         /// Метод API
         /// </summary>
-        public APIMethod ApiMethod { get; set; }
+        public string ApiMethod { get; }
         /// <summary>
         /// Общее количество запросов на ключе
         /// </summary>
@@ -23,7 +23,7 @@ namespace Models
         /// </summary>
         public int SpentCount { get; set; }
 
-        public KeyMethod(Key key, APIMethod apiMethod)
+        public KeyMethod(string key, string apiMethod)
         {
             this.key = key;
             ApiMethod = apiMethod;
