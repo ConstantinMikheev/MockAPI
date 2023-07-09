@@ -54,6 +54,17 @@ namespace Model
             keys.Add(key, new Key(key, methods));
         }
 
+        public void Remove(string key)
+        {
+            if(keys.ContainsKey(key))
+                keys.Remove(key);
+        }
+
+        public void Remove(Key key)
+        {
+            Remove(key.Id);
+        }
+
         public Key GetKey(string id)
         {
             if (!keys.ContainsKey(id))

@@ -28,6 +28,11 @@ namespace BL
             methods.Add(method);
         }
 
+        public void RemoveAPIMethod(string method)
+        {
+            methods.Remove(method);
+        }
+
         public APIMethod GetAPIMethod(string method)
         {
             return methods.GetMethod(method);
@@ -54,6 +59,11 @@ namespace BL
         public void AddKey(string key)
         {
             keys.Add(key, methods);
+        }
+
+        public void RemoveKey(string key)
+        {
+            keys.Remove(key);
         }
 
         public void SaveKeys()

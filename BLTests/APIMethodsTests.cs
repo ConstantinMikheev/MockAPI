@@ -14,9 +14,11 @@ namespace BLTests
         public void APIMethodCreation()
         {
             var methodName = "method1";
+            var methodName2 = "method2";
             var data = new APIData(@"w:\");
             Assert.IsNull(data.GetAPIMethod(methodName));
             data.AddAPIMethod(methodName);
+            data.AddAPIMethod(methodName2);
             Assert.IsNotNull(data.GetAPIMethod(methodName));
             Assert.AreEqual(methodName, data.GetAPIMethod(methodName).ToString());
             try
@@ -28,6 +30,8 @@ namespace BLTests
             {
                 Assert.AreEqual($"Метод с именем {methodName} уже существует", ex.Message);
             }
+            data.RemoveAPIMethod(methodName2);
+            Assert.IsNull(data.GetAPIMethod(methodName2), "Не удалось удалить метод из списка");
         }
 
         [Test]

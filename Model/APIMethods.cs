@@ -49,6 +49,17 @@ namespace Model
             methods.Add(name, method);
         }
 
+        public void Remove(string method)
+        {
+            if (methods.ContainsKey(method.ToLower()))
+                methods.Remove(method.ToLower());
+        }
+
+        public void Remove(APIMethod method)
+        {
+            Remove(method.Name);
+        }
+
         public APIMethod GetMethod(string name)
         {
             if (methods.ContainsKey(name))

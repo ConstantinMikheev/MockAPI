@@ -24,8 +24,10 @@ namespace BLTests
             data.AddAPIMethod(methodName3);
 
             var keyId = "1234";
+            var keyId2 = "12345";
             Assert.IsNull(data.GetKey(keyId));
             data.AddKey(keyId);
+            data.AddKey(keyId2);
             var key = data.GetKey(keyId);
             Assert.IsNotNull(key);
 
@@ -46,6 +48,9 @@ namespace BLTests
                 if (!(methodName == methodName1 || methodName == methodName2 || methodName == methodName3))
                     throw new Exception("У ключа не найдены методы");
             }
+
+            data.RemoveKey(keyId2);
+            Assert.IsNull(data.GetKey(keyId2), "Не удалось удалить ключ из списка");
         }
 
         [Test]
