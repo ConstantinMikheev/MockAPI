@@ -51,6 +51,17 @@ namespace Model
         {
             return methods.Values.ToArray();
         }
+
+        public void AddMethod(string method)
+        {
+            methods.Add(method, new KeyMethod(Id, method));
+        }
+
+        public void RemoveMethod(string method)
+        {
+            if (methods.ContainsKey(method))
+                methods.Remove(method);
+        }
         #endregion
     }
 }

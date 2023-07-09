@@ -86,6 +86,18 @@ namespace Model
             return keys[key].GetMethods();
         }
 
+        public void AddMethod(string method)
+        {
+            foreach (var item in keys.Values)
+                item.AddMethod(method);
+        }
+
+        public void RemoveMethod(string method)
+        {
+            foreach (var item in keys.Values)
+                item.RemoveMethod(method);
+        }
+
         public List<KeyMethod[]> PrepareForSerialization()
         {
             var result = new List<KeyMethod[]>();

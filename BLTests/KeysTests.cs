@@ -18,6 +18,7 @@ namespace BLTests
             var methodName1 = "method1";
             var methodName2 = "method2";
             var methodName3 = "method3";
+            var methodName4 = "method4";
             var data = new APIData(@"w:\");
             data.AddAPIMethod(methodName1);
             data.AddAPIMethod(methodName2);
@@ -48,6 +49,32 @@ namespace BLTests
                 if (!(methodName == methodName1 || methodName == methodName2 || methodName == methodName3))
                     throw new Exception("У ключа не найдены методы");
             }
+
+            data.AddAPIMethod(methodName4);
+            keyMethods = key.GetMethods();
+            bool found =false;
+            foreach (var method in keyMethods)
+            {
+                Assert.AreEqual(keyId, method.key);
+                var methodName = method.ApiMethod;
+                if (methodName == methodName4)
+                    found = true;
+            }
+            if (!found)
+                throw new Exception($"У ключа НЕ найден метод {methodName4}");
+
+            data.RemoveAPIMethod(methodName4);
+            keyMethods = key.GetMethods();
+            found = false;
+            foreach (var method in keyMethods)
+            {
+                Assert.AreEqual(keyId, method.key);
+                var methodName = method.ApiMethod;
+                if (methodName == methodName4)
+                    found = true;
+            }
+            if (found)
+                throw new Exception($"У ключа найден метод {methodName4}");
 
             data.RemoveKey(keyId2);
             Assert.IsNull(data.GetKey(keyId2), "Не удалось удалить ключ из списка");

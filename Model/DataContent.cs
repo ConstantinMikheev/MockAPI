@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Model
 {
@@ -23,17 +25,29 @@ namespace Model
         #endregion
 
         #region Other methods
-        public void AddDataMethodContent(string requestString)
+        public void Add(string requestString)
         {
+            if (content.ContainsKey(requestString))
+                throw new Exception($"Строка запроса контента {requestString} уже существует.");
+
             content.Add(requestString, new List<DataMethodContent>());
         }
 
-        public void AddDataMethodContent(string requestString, APIMethods methods)
+        public void Add(string requestString, APIMethods methods)
         {
+            if (content.ContainsKey(requestString))
+                throw new Exception($"Строка запроса контента {requestString} уже существует.");
+
             var dataMethods = new List<DataMethodContent>();
             foreach (APIMethod method in methods)
                 dataMethods.Add(new DataMethodContent(requestString, method));
             content.Add(requestString, dataMethods);
+        }
+
+        public void Remove(string requestString)
+        {
+            if(content.ContainsKey(requestString))
+                content.Remove(requestString);
         }
 
         public DataMethodContent[] GetDataMethodContents(string requestString)
@@ -44,13 +58,26 @@ namespace Model
             return content[requestString].ToArray();
         }
 
-        public List<DataMethodContent>[] PrepareForSerialization()
+        public void AddMethod(APIMethod method)
         {
-            var result = new List<List<DataMethodContent>>();
-            foreach (var item in content.Values)
-                result.Add(item);
+            foreach (var item in content)
+                item.Value.Add(new DataMethodContent(item.Key, method));
+        }
 
-            return result.ToArray();
+        public void RemoveMethod(string method)
+        {
+            foreach (var list in content.Values)
+                foreach (var item in list)
+                    if (item.ApiMethod.Name == method)
+                    {
+                        list.Remove(item);
+                        break;
+                    }
+        }
+
+        public string[] PrepareForSerialization()
+        {
+            return content.Select(item => item.Key).ToArray();
         }
         #endregion
     }
