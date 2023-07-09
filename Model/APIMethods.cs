@@ -1,5 +1,4 @@
-﻿using Models;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +47,13 @@ namespace Model
                 throw new Exception($"Метод с именем {name} уже существует");
 
             methods.Add(name, method);
+        }
+
+        public APIMethod GetMethod(string name)
+        {
+            if (methods.ContainsKey(name))
+                return methods[name];
+            return null;
         }
 
         public APIMethod[] PrepareForSerialization()

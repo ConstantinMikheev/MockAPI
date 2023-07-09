@@ -1,5 +1,5 @@
 ﻿
-namespace Models
+namespace Model
 {
     /// <summary>
     /// Метод API
