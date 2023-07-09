@@ -47,7 +47,7 @@ namespace BLTests
                 Assert.AreEqual(requestString1, method.RequestData);
                 var methodName = method.ApiMethod.Name;
                 if (!(methodName == methodName1 || methodName == methodName2 || methodName == methodName3))
-                    throw new Exception("У ключа не найдены методы");
+                    throw new Exception("У контента НЕ найдены методы");
             }
 
             data.AddAPIMethod(methodName4);
@@ -61,7 +61,7 @@ namespace BLTests
                     found = true;
             }
             if (!found)
-                throw new Exception($"У ключа НЕ найден метод {methodName4}");
+                throw new Exception($"У контента НЕ найден метод {methodName4}");
 
             data.RemoveAPIMethod(methodName4);
             dataMethods = data.GetContent(requestString1);
@@ -74,10 +74,10 @@ namespace BLTests
                     found = true;
             }
             if (found)
-                throw new Exception($"У ключа НАЙДЕН метод {methodName4}");
+                throw new Exception($"У контента НАЙДЕН метод {methodName4}");
 
             data.RemoveContentRequestString(requestString2);
-            Assert.IsNull(data.GetContent(requestString2));
+            Assert.IsNull(data.GetContent(requestString2), "Не удалось удалить строку запроса контента");
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace BLTests
                 Assert.AreEqual(requestString1, method.RequestData);
                 var methodName = method.ApiMethod.Name;
                 if (!(methodName == methodName1 || methodName == methodName2 || methodName == methodName3))
-                    throw new Exception("У ключа не найдены методы");
+                    throw new Exception("У контента НЕ найдены методы");
             }
 
             File.Delete(path);

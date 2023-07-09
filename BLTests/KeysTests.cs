@@ -47,7 +47,7 @@ namespace BLTests
                 Assert.AreEqual(keyId, method.key);
                 var methodName = method.ApiMethod;
                 if (!(methodName == methodName1 || methodName == methodName2 || methodName == methodName3))
-                    throw new Exception("У ключа не найдены методы");
+                    throw new Exception("У ключа НЕ найдены методы");
             }
 
             data.AddAPIMethod(methodName4);
@@ -74,7 +74,7 @@ namespace BLTests
                     found = true;
             }
             if (found)
-                throw new Exception($"У ключа найден метод {methodName4}");
+                throw new Exception($"У ключа НАЙДЕН метод {methodName4}");
 
             data.RemoveKey(keyId2);
             Assert.IsNull(data.GetKey(keyId2), "Не удалось удалить ключ из списка");
@@ -120,7 +120,7 @@ namespace BLTests
                 Assert.AreEqual(keyId, method.key);
                 var methodName = method.ApiMethod;
                 if (!(methodName == methodName1 || methodName == methodName2 || methodName == methodName3))
-                    throw new Exception("У ключа не найдены методы");
+                    throw new Exception("У ключа НЕ найдены методы");
                 if (method.key == methodName1 && method.TotalCount != 55)
                     throw new Exception("Неверное количество общих запросов на ключе");
                 if (method.key == methodName2 && method.SpentCount != 45)
