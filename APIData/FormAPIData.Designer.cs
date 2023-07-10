@@ -64,6 +64,7 @@
             this.textBoxServerAPI = new System.Windows.Forms.TextBox();
             this.labelServerAPI = new System.Windows.Forms.Label();
             this.textBoxDataContent = new System.Windows.Forms.TextBox();
+            this.buttonLoadDataFromAPI = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabAPIData.SuspendLayout();
             this.tabMethodsSettings.SuspendLayout();
@@ -90,6 +91,7 @@
             // 
             // tabAPIData
             // 
+            this.tabAPIData.Controls.Add(this.buttonLoadDataFromAPI);
             this.tabAPIData.Controls.Add(this.textBoxDataContent);
             this.tabAPIData.Controls.Add(this.labelDataMethods);
             this.tabAPIData.Controls.Add(this.buttonRemoveData);
@@ -446,6 +448,16 @@
             this.textBoxDataContent.Size = new System.Drawing.Size(231, 349);
             this.textBoxDataContent.TabIndex = 7;
             // 
+            // buttonLoadDataFromAPI
+            // 
+            this.buttonLoadDataFromAPI.Location = new System.Drawing.Point(192, 29);
+            this.buttonLoadDataFromAPI.Name = "buttonLoadDataFromAPI";
+            this.buttonLoadDataFromAPI.Size = new System.Drawing.Size(152, 23);
+            this.buttonLoadDataFromAPI.TabIndex = 8;
+            this.buttonLoadDataFromAPI.Text = "Загрузить данные из API";
+            this.buttonLoadDataFromAPI.UseVisualStyleBackColor = true;
+            this.buttonLoadDataFromAPI.Click += new System.EventHandler(this.buttonLoadDataFromAPI_Click);
+            // 
             // FormAPIData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -507,6 +519,7 @@
         private System.Windows.Forms.Button buttonRemoveData;
         private System.Windows.Forms.Label labelDataMethods;
         private System.Windows.Forms.TextBox textBoxDataContent;
+        private System.Windows.Forms.Button buttonLoadDataFromAPI;
     }
 }
 

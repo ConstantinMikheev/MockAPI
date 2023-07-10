@@ -72,5 +72,20 @@ namespace APIData
                 currentDataPath = item.ContentPath;
             }
         }
+
+        private void buttonLoadDataFromAPI_Click(object sender, EventArgs e)
+        {
+            var listForDownloads = new List<string>();
+
+            foreach (var item in checkedListBoxData.CheckedItems)
+                listForDownloads.Add(item.ToString());
+
+            if (listForDownloads.Count == 0)
+            {
+                if (MessageBox.Show("Не выбраны данные для загрузки. Загрузить весь список?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    foreach (var item in checkedListBoxData.Items)
+                        listForDownloads.Add(item.ToString());
+            }
+        }
     }
 }
