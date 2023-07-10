@@ -7,10 +7,13 @@ namespace BL
 {
     public class APIData
     {
+        public Settings settings { get; set; }
         private APIMethods methods;
         private Keys keys;
         private DataContent content;
+
         private string mainDir;
+        private string pathSettings;
         private string pathAPIMethods;
         private string pathKeys;
         private string pathDataContentSettings;
@@ -19,15 +22,37 @@ namespace BL
         public APIData(string mainDir)
         {
             this.mainDir = mainDir;
+            pathSettings = Path.Combine(mainDir, "Settings.json");
             pathAPIMethods = Path.Combine(mainDir, "APIMethods.json");
             pathKeys = Path.Combine(mainDir, "Keys.json");
             pathDataContentSettings = Path.Combine(mainDir, "DataContentSettings.json");
             pathDataContentTemplate = Path.Combine(mainDir, "DataContent\\{RequestString}\\");
 
+            settings = LoadSettings();
             methods = LoadAPIMethods();
             keys = LoadKeys();
             content = LoadDataContent();
         }
+
+        #region Settings
+        public void SaveSettings()
+        {
+            SerializeToJSON(pathSettings, settings);
+        }
+
+        public Settings LoadSettings()
+        {
+            var jsonText = ReadJSONFromFile(pathSettings);
+            if (jsonText == null)
+                return new Settings();
+            var temp = JsonSerializer.Deserialize<Settings>(jsonText);
+
+            if (temp == null)
+                return new Settings();
+            else
+                return temp;
+        }
+        #endregion
 
         #region APIMethods
         public void AddAPIMethod(string method)
@@ -57,10 +82,9 @@ namespace BL
 
         public APIMethods LoadAPIMethods()
         {
-            if (!File.Exists(pathAPIMethods))
+            var jsonText = ReadJSONFromFile(pathAPIMethods);
+            if (jsonText == null)
                 return new APIMethods();
-
-            var jsonText = File.ReadAllText(pathAPIMethods);
             var temp = JsonSerializer.Deserialize<APIMethod[]>(jsonText);
 
             return new APIMethods(temp);
@@ -90,10 +114,9 @@ namespace BL
 
         public Keys LoadKeys()
         {
-            if (!File.Exists(pathKeys))
+            var jsonText = ReadJSONFromFile(pathKeys);
+            if (jsonText == null)
                 return new Keys();
-
-            var jsonText = File.ReadAllText(pathKeys);
             var temp = JsonSerializer.Deserialize<List<KeyMethod[]>>(jsonText);
 
             return new Keys(temp);
@@ -123,10 +146,9 @@ namespace BL
 
         public DataContent LoadDataContent()
         {
-            if (!File.Exists(pathDataContentSettings))
+            var jsonText = ReadJSONFromFile(pathDataContentSettings);
+            if (jsonText == null)
                 return new DataContent();
-
-            var jsonText = File.ReadAllText(pathDataContentSettings);
             var temp = JsonSerializer.Deserialize<string[]>(jsonText);
 
             var result = new DataContent();
@@ -149,6 +171,25 @@ namespace BL
             };
             var result = JsonSerializer.Serialize<T>(obj, options);
             File.WriteAllText(path, result);
+        }
+
+        private string ReadJSONFromFile(string path)
+        {
+            if (!File.Exists(path))
+                return null;
+
+            string result;
+            try
+            {
+                result = File.ReadAllText(path);
+                if (string.IsNullOrWhiteSpace(result))
+                    result = null;
+            } catch
+            {
+                result = null;
+            }
+
+            return result;
         }
         #endregion
     }

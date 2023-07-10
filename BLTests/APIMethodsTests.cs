@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using BL;
-using Model;
 using NUnit.Framework;
 
 namespace BLTests
