@@ -182,6 +182,39 @@ namespace BL
 
             return result;
         }
+
+        public void LoadDataFromAPI(List<string> requestsStrings)
+        {
+            foreach (var requestString in requestsStrings)
+            {
+                var dataMethods = content.GetDataMethodContents(requestString);
+                foreach (var item in dataMethods)
+                {
+                    var curMethod = item.ApiMethod;
+                    if (!curMethod.Enabled)
+                        continue;
+                    string contentString;
+                    if (string.IsNullOrEmpty(curMethod.ResourceString))
+                        if (string.IsNullOrEmpty(settings.ResourceStringTemplate))
+                            continue;
+                        else
+                            contentString = settings.ResourceStringTemplate;
+                    else
+                        contentString = curMethod.ResourceString;
+                    contentString = contentString.Replace("{MethodName}", curMethod.Name);
+                    contentString = contentString.Replace("{RequestString}", requestString);
+                    for(int i = 0; i < settings.Keys.Count; i++)
+                    {
+                        var tempKey = "{Key" + (i + 1).ToString() + "}";
+                        contentString = contentString.Replace(tempKey, settings.Keys[i]);
+                    }
+                    contentString = settings.ServerAPI + contentString;
+                    if (!Directory.Exists(Path.Combine(mainDir, $"DataContent\\{requestString}")))
+                        Directory.CreateDirectory(Path.Combine(mainDir, $"DataContent\\{requestString}"));
+                    Downloader.Download(contentString, item.ContentPath);
+                }
+            }
+        }
         #endregion
 
         #region JSON serialization

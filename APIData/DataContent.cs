@@ -11,12 +11,14 @@ using System.Windows.Forms;
 using BL;
 using Model;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace APIData
 {
     public partial class FormAPIData : Form
     {
         private DataContent dataContent = new DataContent();
+        private string currentRequestString;
         private string currentDataPath;
 
         private void LoadDataContent()
@@ -65,11 +67,11 @@ namespace APIData
 
             listBoxDataMethods.Items.Clear();
             var dataMethods = dataContent.GetDataMethodContents(checkedListBoxData.Text);
+            currentRequestString = checkedListBoxData.Text;
             foreach (var item in dataMethods)
             {
                 var curMethod = item.ApiMethod;
                 listBoxDataMethods.Items.Add(curMethod.Name);
-                currentDataPath = item.ContentPath;
             }
         }
 
@@ -86,6 +88,27 @@ namespace APIData
                     foreach (var item in checkedListBoxData.Items)
                         listForDownloads.Add(item.ToString());
             }
+            if (listForDownloads.Count > 0)
+            {
+                apiData.LoadDataFromAPI(listForDownloads);
+                MessageBox.Show("Загрузка завершена");
+            }
+        }
+
+        private void listBoxDataMethods_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBoxDataContent.Clear();
+
+            var curPath = "";
+            var curMethods = apiData.GetContent(currentRequestString);
+            foreach (var item in curMethods)
+                if (item.ApiMethod.Name == listBoxDataMethods.Text)
+                {
+                    curPath = item.ContentPath;
+                    break;
+                }
+            if (!string.IsNullOrEmpty(curPath) && File.Exists(curPath))
+                textBoxDataContent.Text = File.ReadAllText(curPath);
         }
     }
 }

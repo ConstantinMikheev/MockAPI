@@ -30,6 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabAPIData = new System.Windows.Forms.TabPage();
+            this.buttonLoadDataFromAPI = new System.Windows.Forms.Button();
+            this.textBoxDataContent = new System.Windows.Forms.TextBox();
             this.labelDataMethods = new System.Windows.Forms.Label();
             this.buttonRemoveData = new System.Windows.Forms.Button();
             this.listBoxDataMethods = new System.Windows.Forms.ListBox();
@@ -63,8 +65,6 @@
             this.labelTemplateResourceString = new System.Windows.Forms.Label();
             this.textBoxServerAPI = new System.Windows.Forms.TextBox();
             this.labelServerAPI = new System.Windows.Forms.Label();
-            this.textBoxDataContent = new System.Windows.Forms.TextBox();
-            this.buttonLoadDataFromAPI = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabAPIData.SuspendLayout();
             this.tabMethodsSettings.SuspendLayout();
@@ -107,6 +107,27 @@
             this.tabAPIData.Text = "Данные из API";
             this.tabAPIData.UseVisualStyleBackColor = true;
             // 
+            // buttonLoadDataFromAPI
+            // 
+            this.buttonLoadDataFromAPI.Location = new System.Drawing.Point(192, 29);
+            this.buttonLoadDataFromAPI.Name = "buttonLoadDataFromAPI";
+            this.buttonLoadDataFromAPI.Size = new System.Drawing.Size(152, 23);
+            this.buttonLoadDataFromAPI.TabIndex = 8;
+            this.buttonLoadDataFromAPI.Text = "Загрузить данные из API";
+            this.buttonLoadDataFromAPI.UseVisualStyleBackColor = true;
+            this.buttonLoadDataFromAPI.Click += new System.EventHandler(this.buttonLoadDataFromAPI_Click);
+            // 
+            // textBoxDataContent
+            // 
+            this.textBoxDataContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxDataContent.Location = new System.Drawing.Point(560, 58);
+            this.textBoxDataContent.Multiline = true;
+            this.textBoxDataContent.Name = "textBoxDataContent";
+            this.textBoxDataContent.Size = new System.Drawing.Size(231, 349);
+            this.textBoxDataContent.TabIndex = 7;
+            // 
             // labelDataMethods
             // 
             this.labelDataMethods.AutoSize = true;
@@ -135,6 +156,7 @@
             this.listBoxDataMethods.Name = "listBoxDataMethods";
             this.listBoxDataMethods.Size = new System.Drawing.Size(204, 355);
             this.listBoxDataMethods.TabIndex = 4;
+            this.listBoxDataMethods.SelectedIndexChanged += new System.EventHandler(this.listBoxDataMethods_SelectedIndexChanged);
             // 
             // checkedListBoxData
             // 
@@ -436,27 +458,6 @@
             this.labelServerAPI.Size = new System.Drawing.Size(64, 13);
             this.labelServerAPI.TabIndex = 2;
             this.labelServerAPI.Text = "Сервер API";
-            // 
-            // textBoxDataContent
-            // 
-            this.textBoxDataContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDataContent.Location = new System.Drawing.Point(560, 58);
-            this.textBoxDataContent.Multiline = true;
-            this.textBoxDataContent.Name = "textBoxDataContent";
-            this.textBoxDataContent.Size = new System.Drawing.Size(231, 349);
-            this.textBoxDataContent.TabIndex = 7;
-            // 
-            // buttonLoadDataFromAPI
-            // 
-            this.buttonLoadDataFromAPI.Location = new System.Drawing.Point(192, 29);
-            this.buttonLoadDataFromAPI.Name = "buttonLoadDataFromAPI";
-            this.buttonLoadDataFromAPI.Size = new System.Drawing.Size(152, 23);
-            this.buttonLoadDataFromAPI.TabIndex = 8;
-            this.buttonLoadDataFromAPI.Text = "Загрузить данные из API";
-            this.buttonLoadDataFromAPI.UseVisualStyleBackColor = true;
-            this.buttonLoadDataFromAPI.Click += new System.EventHandler(this.buttonLoadDataFromAPI_Click);
             // 
             // FormAPIData
             // 
