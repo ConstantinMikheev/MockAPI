@@ -20,7 +20,7 @@ namespace Model
             methods = new Dictionary<string, APIMethod>();
 
             foreach(var item in arrayOfMethods)
-                methods[item.Name] = item;
+                methods[item.Name.ToLower()] = item;
         }
         #endregion
 
@@ -35,6 +35,9 @@ namespace Model
         #region Other methods
         public void Add(string method)
         {
+            if (string.IsNullOrEmpty(method))
+                throw new Exception("Не заполнено имя метода");
+
             var newMethod = new APIMethod(method);
             Add(newMethod);
         }
@@ -62,8 +65,8 @@ namespace Model
 
         public APIMethod GetMethod(string name)
         {
-            if (methods.ContainsKey(name))
-                return methods[name];
+            if (methods.ContainsKey(name.ToLower()))
+                return methods[name.ToLower()];
             return null;
         }
 

@@ -7,7 +7,7 @@ namespace BL
 {
     public class APIData
     {
-        public Settings settings { get; set; }
+        private Settings settings;
         private APIMethods methods;
         private Keys keys;
         private DataContent content;
@@ -26,7 +26,7 @@ namespace BL
             pathAPIMethods = Path.Combine(mainDir, "APIMethods.json");
             pathKeys = Path.Combine(mainDir, "Keys.json");
             pathDataContentSettings = Path.Combine(mainDir, "DataContentSettings.json");
-            pathDataContentTemplate = Path.Combine(mainDir, "DataContent\\{RequestString}\\");
+            pathDataContentTemplate = Path.Combine(mainDir, "DataContent\\{RequestString}\\{APIMethod}.json");
 
             settings = LoadSettings();
             methods = LoadAPIMethods();
@@ -35,6 +35,21 @@ namespace BL
         }
 
         #region Settings
+        public void AddDownloadKey(string key)
+        {
+            settings.AddKey(key);
+        }
+
+        public void RemoveDownloadKey(string key)
+        {
+            settings.RemoveKey(key);
+        }
+
+        public Settings GetSettings()
+        {
+            return settings;
+        }
+
         public void SaveSettings()
         {
             SerializeToJSON(pathSettings, settings);
@@ -55,6 +70,11 @@ namespace BL
         #endregion
 
         #region APIMethods
+        public APIMethods GetAPIMethods()
+        {
+            return methods;
+        }
+
         public void AddAPIMethod(string method)
         {
             methods.Add(method);
@@ -124,9 +144,14 @@ namespace BL
         #endregion
 
         #region DataContent
+        public DataContent GetDataContent()
+        {
+            return content;
+        }
+
         public void AddContentRequestString(string requestString)
         {
-            content.Add(requestString, methods);
+            content.Add(requestString, methods, pathDataContentTemplate);
         }
 
         public void RemoveContentRequestString(string requestString)
@@ -153,7 +178,7 @@ namespace BL
 
             var result = new DataContent();
             foreach (var item in temp)
-                result.Add(item, methods);
+                result.Add(item, methods, pathDataContentTemplate);
 
             return result;
         }

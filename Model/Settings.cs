@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Model
 {
@@ -29,6 +30,22 @@ namespace Model
             Keys = new List<string>();
             ServerAPI = string.Empty;
             ResourceStringTemplate = string.Empty;
+        }
+
+        public void AddKey(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+                throw new Exception("Ключ доступа не может быть пустым");
+            if (Keys.Contains(key))
+                throw new Exception($"Ключ доступа {key} уже добавлен в список");
+
+            Keys.Add(key);
+        }
+
+        public void RemoveKey(string key)
+        {
+            if (Keys.Contains(key))
+                Keys.Remove(key);
         }
     }
 }

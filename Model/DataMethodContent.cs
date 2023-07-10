@@ -15,15 +15,22 @@ namespace Model
         /// </summary>
         public APIMethod ApiMethod { get; set; }
         /// <summary>
-        /// Содержимое в текстовом виде
+        /// Путь к содержимому в текстовом виде
         /// </summary>
-        public string Content { get; set; }
+        public string ContentPath { get; set; }
 
         public DataMethodContent(string requestData, APIMethod apiMethod)
         {
             RequestData = requestData;
             ApiMethod = apiMethod;
-            Content = string.Empty;
+            ContentPath = string.Empty;
+        }
+
+        public DataMethodContent(string requestData, APIMethod apiMethod, string contentPath)
+        {
+            RequestData = requestData;
+            ApiMethod = apiMethod;
+            ContentPath = contentPath;
         }
     }
 }

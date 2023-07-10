@@ -25,22 +25,49 @@ namespace Model
         #endregion
 
         #region Other methods
+        public List<string> GetRequestStrings()
+        {
+            return content.Keys.ToList();
+        }
+
         public void Add(string requestString)
         {
+            if (string.IsNullOrEmpty(requestString))
+                throw new Exception("Строка запроса контента не может быть пустой");
             if (content.ContainsKey(requestString))
-                throw new Exception($"Строка запроса контента {requestString} уже существует.");
+                throw new Exception($"Строка запроса контента {requestString} уже существует");
 
             content.Add(requestString, new List<DataMethodContent>());
         }
 
         public void Add(string requestString, APIMethods methods)
         {
+            if (string.IsNullOrEmpty(requestString))
+                throw new Exception("Строка запроса контента не может быть пустой");
             if (content.ContainsKey(requestString))
-                throw new Exception($"Строка запроса контента {requestString} уже существует.");
+                throw new Exception($"Строка запроса контента {requestString} уже существует");
 
             var dataMethods = new List<DataMethodContent>();
             foreach (APIMethod method in methods)
                 dataMethods.Add(new DataMethodContent(requestString, method));
+            content.Add(requestString, dataMethods);
+        }
+
+        public void Add(string requestString, APIMethods methods, string pathTemplate)
+        {
+            if (string.IsNullOrEmpty(requestString))
+                throw new Exception("Строка запроса контента не может быть пустой");
+            if (content.ContainsKey(requestString))
+                throw new Exception($"Строка запроса контента {requestString} уже существует");
+
+            var dataMethods = new List<DataMethodContent>();
+            string path;
+            foreach (APIMethod method in methods)
+            {
+                path = pathTemplate.Replace("{RequestString}", requestString);
+                path = path.Replace("{APIMethod}", method.Name);
+                dataMethods.Add(new DataMethodContent(requestString, method, path));
+            }
             content.Add(requestString, dataMethods);
         }
 
